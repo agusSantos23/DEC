@@ -44,14 +44,12 @@
           </button>
         </div>
         
-      
         <h3 id="mensage" class="w-2/3 text-center text-[#5678b8] font-bold"></h3>
         
       </div>
 
       <footer class="relative w-full h-12 flex justify-between items-end">
         <h2 id="record" class="h-10 ml-5 text-[#5678b8] text-lg font-semibold"></h2>
-
 
         <div id="trigger-div" class="w-56 px-2 flex justify-around items-center bg-[#fff] border-t-2 border-l-2 border-[#a5cccb] rounded-tl cursor-pointer">
 
@@ -78,8 +76,6 @@
     </main>
   </div>
   <script>
-
-    
 
     let numRamdom
 
@@ -138,8 +134,7 @@
 
     document.getElementById("trigger-div").addEventListener("click", desplegar)
 
-    reiniciar.addEventListener('click', () => {
-
+    reiniciar.addEventListener("click", () => {
       localStorage.removeItem("FACIL")
       localStorage.removeItem("MEDIO")
       localStorage.removeItem("DIFICIL")
@@ -148,8 +143,7 @@
       record.innerText = ""
       mensage.innerText = ""
       dificultad.innerText = "Dificultad"
-      mensageIntentos.innerText = ''
-
+      mensageIntentos.innerText = ""
     })
     
     btn.addEventListener("click", () => {
@@ -180,11 +174,13 @@
               mensageIntentos.innerText = ""
               
             }else{
+
               mensage.innerText = `Enorabuena has batido tu record anterior con ${mensageIntentos.innerText} intentos` 
               localStorage.setItem(modo, mensageIntentos.innerText)
               record.innerText = `Tu record en ${modo} es: ${localStorage.getItem(modo)}`
               dificultad.innerText = "Dificultad"
               mensageIntentos.innerText = ""
+
             }
           }
           numero.value = ""
@@ -196,6 +192,7 @@
           }
 
         } else {
+
           mensage.innerText = "El valor que as introducido no es correcto solo se permiten numeros del 1 al 100"
 
           setTimeout(() => {
@@ -210,5 +207,4 @@
 
   </script>
 </body>
-
 </html>
