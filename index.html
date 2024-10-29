@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..7001,100..700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Adivina el numero</title>
+</head>
+<body class="h-screen flex justify-center items-center bg-[#5678b8]">
+
+  <div class="w-4/6 h-4/6  flex items-center bg-[#fff] border-8 border-[#a5cccb] rounded-lg">
+
+    
+
+    <main class="w-full h-full flex flex-col justify-between items-center">
+
+      <header class="relative flex w-full h-20 justify-around items-center">
+        <h2 class="w-40 text-xl font-semibold text-[#5678b8]">Num Intentos: <span id="intentos"></span></h2>
+        <h1 class="text-xl text-center text-[#5678b8] font-bold tracking-widest">ADIVINA EL NUMERO</h1>
+        <svg id="reiniciar" class="mx-16 group cursor-pointer" width="30" height="30" viewBox="0 0 128 128"  version="1.1">
+          <path  class="fill-[#5678b8] group-hover:fill-[#a5cccb] duration-300" d="m 60.90625,7.984375 c -28.67767,0 -51.9375,23.259829 -51.9375,51.9375 0,16.676866 7.86714,31.512857 20.09375,41.000005 l -10.96875,10.65625 36,0.3125 0.75,-36.000005 -11.375,11.03125 C 34.61486,81.195848 28.75,71.254649 28.75,59.921875 c 0,-17.763035 14.39321,-32.15625 32.15625,-32.15625 0.77958,0 1.54683,0.03923 2.3125,0.09375 l 0,-19.8125 c -0.76301,-0.03329 -1.5413,-0.0625 -2.3125,-0.0625 z m 13,8.125 -0.75,36 11.375,-11.03125 c 8.85389,5.726027 14.71875,15.667226 14.71875,27 0,17.763035 -14.39321,32.156255 -32.15625,32.156255 -0.779582,0 -1.546832,-0.0392 -2.3125,-0.0937 l 0,19.8125 c 0.763014,0.0333 1.541303,0.0625 2.3125,0.0625 28.67767,0 51.9375,-23.259834 51.9375,-51.937505 0,-16.676866 -7.86714,-31.512857 -20.09375,-41 l 10.96875,-10.65625 -36,-0.3125 z"/>
+        </svg>
+      </header>
+
+      <div class="h-32 w-full flex flex-col justify-between items-center">
+
+        <div class="relative">
+          <input class="w-20 px-5 pb-2 bg-[#fff] border-b-2 text-2xl text-center font-semibold border-[#a5cccb] rounded focus:outline-none focus:border-[#5678b8] transition-colors duration-300" type="text" id="numero" placeholder="0">
+
+          <button class="absolute -right-16 group bg-[#fff] p-3 rounded-full hover:bg-[#5678b8]">
+            <svg class="fill-[#a5cccb] group-hover:fill-[#fff]" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve" transform="rotate(90)">
+              <g>
+                <g>
+                  <path d="M505.749,304.918L271.083,70.251c-8.341-8.341-21.824-8.341-30.165,0L6.251,304.918C2.24,308.907,0,314.326,0,320.001
+                      v106.667c0,8.619,5.184,16.427,13.163,19.712c7.979,3.307,17.152,1.472,23.253-4.629L256,222.166L475.584,441.75
+                      c4.075,4.075,9.536,6.251,15.083,6.251c2.752,0,5.525-0.512,8.171-1.621c7.979-3.285,13.163-11.093,13.163-19.712V320.001
+                      C512,314.326,509.76,308.907,505.749,304.918z"/>
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+        
+      
+        <h3 id="mensage" class="w-2/3 text-center text-[#5678b8] font-bold"></h3>
+        
+      </div>
+
+      <footer class="relative w-full h-12 flex justify-between items-end">
+        <h2 id="record" class="h-10 ml-5 text-[#5678b8] text-lg font-semibold"></h2>
+
+
+        <div id="trigger-div" class="w-56 px-2 flex justify-around items-center bg-[#fff] border-t-2 border-l-2 border-[#a5cccb] rounded-tl cursor-pointer">
+
+          <svg fill="#5678b8" height="18px" width="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve">
+            <g>
+              <g>
+                <path d="M505.749,304.918L271.083,70.251c-8.341-8.341-21.824-8.341-30.165,0L6.251,304.918C2.24,308.907,0,314.326,0,320.001
+                  v106.667c0,8.619,5.184,16.427,13.163,19.712c7.979,3.307,17.152,1.472,23.253-4.629L256,222.166L475.584,441.75
+                  c4.075,4.075,9.536,6.251,15.083,6.251c2.752,0,5.525-0.512,8.171-1.621c7.979-3.285,13.163-11.093,13.163-19.712V320.001
+                  C512,314.326,509.76,308.907,505.749,304.918z"/>
+              </g>
+            </g>
+          </svg>
+
+          <button id="dificultad" class="w-36 text-center text-xl text-[#5678b8] p-2 font-bold tracking-widest">Dificultad</button>
+        </div>
+
+        <div id="resizable-div" class="absolute overflow-hidden right-0 bottom-11 w-48 bg-[#fff] border-t-2 border-l-2 border-[#a5cccb] rounded-tl text-md text-center tracking-widest font-semibold ">
+          <h4 id="facil" class="p-1 text-[#5678b8] hover:bg-[#a5cccb] hover:text-[#fff] cursor-pointer duration-300">Facil (1 - 10)</h4>
+          <h4 id="medio" class="p-1 text-[#5678b8] hover:bg-[#a5cccb] hover:text-[#fff] cursor-pointer duration-300">Medio (1 - 50)</h4>
+          <h4 id="dificil" class="p-1 text-[#5678b8] hover:bg-[#a5cccb] hover:text-[#fff] cursor-pointer duration-300">Dificil (1 - 100)</h4>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script>
+
+    
+
+    let numRamdom
+
+    const btn = document.querySelector("button")
+    const btnFacil = document.getElementById("facil")
+    const btnMedio = document.getElementById("medio")
+    const btnDificil = document.getElementById("dificil")
+
+    const reiniciar = document.getElementById("reiniciar")
+    const dificultad = document.getElementById("dificultad")
+    const numero = document.getElementById("numero")
+    const record = document.getElementById("record")
+    const mensage = document.getElementById("mensage")
+    const mensageIntentos = document.getElementById("intentos")
+    
+    const desplegar = () =>{
+      const resizableDiv = document.getElementById("resizable-div")
+      if (resizableDiv.classList.contains("max-h-0")) {
+        resizableDiv.classList.remove("max-h-0")
+        resizableDiv.classList.add("max-h-64")
+      } else {
+        resizableDiv.classList.remove("max-h-64")
+        resizableDiv.classList.add("max-h-0")
+      }
+    }
+
+    btnFacil.addEventListener("click", () => {
+      record.innerText = localStorage.getItem("FACIL") && "Tu record en facil es: " + localStorage.getItem("FACIL")
+      dificultad.innerText = "FACIL"
+      mensage.innerText = "" 
+      numero.value = ""
+      numRamdom = Math.floor(Math.random() * 10) + 1
+      mensageIntentos.innerText = 5
+      desplegar()
+    })
+
+    btnMedio.addEventListener("click", () => {
+      record.innerText = localStorage.getItem("MEDIO") && "Tu record en medio es: " + localStorage.getItem("MEDIO") 
+      dificultad.innerText = "MEDIO"
+      mensage.innerText = "" 
+      numero.value = ""
+      numRamdom = Math.floor(Math.random() * 50) + 1
+      mensageIntentos.innerText = 7
+      desplegar()
+    })
+
+    btnDificil.addEventListener("click", () => {
+      record.innerText = localStorage.getItem("DIFICIL") && "Tu record en dificil es: " + localStorage.getItem("DIFICIL") 
+      dificultad.innerText = "DIFICIL"
+      mensage.innerText = "" 
+      numero.value = ""
+      numRamdom = Math.floor(Math.random() * 100) + 1
+      mensageIntentos.innerText = 10
+      desplegar()
+    })
+
+    document.getElementById("trigger-div").addEventListener("click", desplegar)
+
+    reiniciar.addEventListener('click', () => {
+
+      localStorage.removeItem("FACIL")
+      localStorage.removeItem("MEDIO")
+      localStorage.removeItem("DIFICIL")
+
+      numero.value = ""
+      record.innerText = ""
+      mensage.innerText = ""
+      dificultad.innerText = "Dificultad"
+      mensageIntentos.innerText = ''
+
+    })
+    
+    btn.addEventListener("click", () => {
+
+      const modo = dificultad.innerText
+
+      if (modo !== "Dificultad") {
+        const esValido = /^(?!0$)\d{1,3}$/.test(numero.value)
+
+        if (esValido) {
+          const numeroEntero = parseInt(numero.value, 10)
+
+
+          if (numeroEntero < numRamdom) {
+            mensage.innerText = `El ${numeroEntero} es mas pequeño`
+            mensageIntentos.innerText -= 1
+
+          }else if (numeroEntero > numRamdom) {
+            mensage.innerText = `El ${numeroEntero} es mas grande`
+            mensageIntentos.innerText -= 1
+
+          }else{
+
+            if (parseInt(localStorage.getItem(modo), 10) > parseInt(mensageIntentos.innerText, 10)) {
+
+              mensage.innerText = `Has acertado el numero era el ${numeroEntero}` 
+              dificultad.innerText = "Dificultad"
+              mensageIntentos.innerText = ""
+              
+            }else{
+              mensage.innerText = `Enorabuena has batido tu record anterior con ${mensageIntentos.innerText} intentos` 
+              localStorage.setItem(modo, mensageIntentos.innerText)
+              record.innerText = `Tu record en ${modo} es: ${localStorage.getItem(modo)}`
+              dificultad.innerText = "Dificultad"
+              mensageIntentos.innerText = ""
+            }
+          }
+          numero.value = ""
+
+          if (parseInt(mensageIntentos.innerText, 10) === 0) {            
+            mensage.innerText = "Has perdido"
+            record.innerText = ""
+            dificultad.innerText = "Dificultad"
+          }
+
+        } else {
+          mensage.innerText = "El valor que as introducido no es correcto solo se permiten numeros del 1 al 100"
+
+          setTimeout(() => {
+            mensage.innerText = ""
+          }, 8000)
+        }
+        
+      }else{
+        mensage.innerText = "Debes elegir una dificultad"
+      }
+    })
+
+  </script>
+</body>
+
+</html>
