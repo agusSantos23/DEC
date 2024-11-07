@@ -13,37 +13,20 @@
       <h2>CRUD - COOKIES</h2>
     </div>
 
-    <button id="btnAdd">Agregar Tarea</button>
+    <button id="btnAdd" onclick="showCreateTask()">Agregar Tarea</button>
   </header>
   <main>
-    <div class="task">
-      <h3>34289</h3>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-      </p>
-
-      <span>
-        <img src="./svg/edit.svg" alt="edit">
-        
-        <img src="./svg/trash.svg" alt="trash">
-      </span>
-    </div>
-    <div class="task">
-      <h3>34289</h3>
-
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-      </p>
-
-      <div>
-        <img src="./svg/edit.svg" alt="edit">
-        
-        <img src="./svg/trash.svg" alt="trash">
-      </div>
-    </div>
+    
   </main>
 
+  <div id="modal">
+
+    <main>
+      <img id="closeModal" src="./svg/close.svg" alt="close">
+      <div id="modalContent"></div>
+    </main>
+
+  </div>
 
   <script src="script.js"></script>
 </body>

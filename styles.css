@@ -3,6 +3,10 @@ h1,h2,h3{
   margin: 0;
 }
 
+img, button{
+  cursor: pointer;
+}
+
 header{
   display: flex;
   justify-content: space-around;
@@ -10,7 +14,11 @@ header{
   margin: 50px 0;
 }
 
-div > h2{
+header h1{
+  font-size: 35px;
+}
+
+header h2{
   font-size: 20px;
 }
 
@@ -18,10 +26,20 @@ div > h2{
   font-size: 17px;
   height: 50px;
   padding: 0 20px;
-  cursor: pointer;
+  background-color: #2ecc71;
+  border: 2px solid #2ecc71;
+  color: white;
+  font-weight: 700;
+  border-radius: 3px;
+  transition: .3s ease-in;
 }
 
-main{
+#btnAdd:hover{
+  color: #1c1c1c;
+  border: 2px solid #1c1c1c;
+}
+
+body > main{
   margin: 0 10%;
   display: flex;
   flex-direction: column;
@@ -38,11 +56,104 @@ main{
 }
 
 .task > p {
-  width: 70%;
+  width: 60%;
   font-size: 20px;
 }
 
+#modal{
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .2);
+}
 
-.task > div > img{
-  cursor: pointer;
+#modal > main{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translateY(-50%) translateX(50%);
+
+  background-color: white;
+  width: 40vw;
+  min-height: 20vh;
+  max-height: 70vh;
+  border: 3px solid #1c1c1c;
+  border-radius: 10px;
+}
+
+#modal img{
+  margin: 5px;
+}
+
+#modalContent{
+  margin: 0 10% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#modalContent > h2 {
+  width: 100%;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+#modalContent > h3 {
+  text-align: center;
+  font-size: 22px;
+}
+
+#modalContent > textarea {
+  width: 100%;        
+  min-height: 45px; 
+  max-height: 350px;
+  resize: vertical;    
+  padding: 8px;        
+  box-sizing: border-box; 
+}
+
+#modalContent button{
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 3px;
+  width: 200px;
+  padding: 10px ;
+  color: white;
+  transition: .3s ease-in;
+}
+
+#modalContent button:hover{
+  color: #1c1c1c;
+  border: 2px solid #1c1c1c;
+}
+
+#modalContent > button{
+  background-color: #2ecc71;
+  border: 2px solid #2ecc71;
+}
+
+
+#modalContent button:first-child{
+  background-color: #cc2e2e;
+  border: 2px solid #cc2e2e;
+}
+
+#modalContent button:last-child{
+  background-color: #2ecc71;
+  border: 2px solid #2ecc71;
+}
+
+#modalContent button:first-child:hover {
+  color: #1c1c1c;
+  border-color: #1c1c1c; 
+}
+
+#modalContent button:last-child:hover {
+  color: #1c1c1c;
+  border-color: #1c1c1c; 
 }
