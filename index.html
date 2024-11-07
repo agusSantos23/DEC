@@ -3,25 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
   <title>CRUD Tareas</title>
 </head>
 <body>
   <header>
-    <h1>Tareas Pendientes</h1>
-    <h2>CRUD - COOKIES</h2>
-  </header>
-  <body>
-    <table>
-      <thead>
-        <th>ID</th>
-        <th>Tarea</th>
-        <th>Acciones</th>
-      </thead>
-      <tbody>
+    <div>
+      <h1>Tareas Pendientes</h1>
+      <h2>CRUD - COOKIES</h2>
+    </div>
 
-      </tbody>
-    </table>
-  </body>
+    <button id="btnAdd">Agregar Tarea</button>
+  </header>
+  <main>
+    <div class="task">
+      <h3>34289</h3>
+
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </p>
+
+      <span>
+        <img src="./svg/edit.svg" alt="edit">
+        
+        <img src="./svg/trash.svg" alt="trash">
+      </span>
+    </div>
+    <div class="task">
+      <h3>34289</h3>
+
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </p>
+
+      <div>
+        <img src="./svg/edit.svg" alt="edit">
+        
+        <img src="./svg/trash.svg" alt="trash">
+      </div>
+    </div>
+  </main>
+
+
   <script src="script.js"></script>
 </body>
 </html>

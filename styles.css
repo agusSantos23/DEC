@@ -1,0 +1,48 @@
+
+h1,h2,h3{
+  margin: 0;
+}
+
+header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 50px 0;
+}
+
+div > h2{
+  font-size: 20px;
+}
+
+#btnAdd{
+  font-size: 17px;
+  height: 50px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+main{
+  margin: 0 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid #1c1c1c;
+  border-radius: 10px;
+}
+
+.task > p {
+  width: 70%;
+  font-size: 20px;
+}
+
+
+.task > div > img{
+  cursor: pointer;
+}
