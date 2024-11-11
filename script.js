@@ -89,7 +89,7 @@ class Modal {
   }
 }
 
-const TaskManager = new TaskManager()
+const taskManager = new TaskManager()
 const modal = new Modal()
 
 
@@ -98,7 +98,7 @@ function showTasks() {
   const labelMain = document.querySelector("main")
   labelMain.innerHTML = ""
 
-  const tasks = TaskManager.getTask()
+  const tasks = taskManager.getTask()
   
   tasks.forEach((task) => {
     const div = document.createElement('div')
@@ -158,7 +158,7 @@ function addTask() {
   const descripcion = document.getElementById("descripcion").value
 
   if (descripcion) {
-    TaskManager.postTask(descripcion)
+    taskManager.postTask(descripcion)
     modal.close()
     showTasks()
   }else{
@@ -170,14 +170,14 @@ function updateTask(id) {
   const descripcion = document.getElementById('descripcion').value
 
   if (descripcion) {
-    TaskManager.putTask(id, descripcion)
+    taskManager.putTask(id, descripcion)
     modal.close()
     showTasks()
   }
 }
 
 function deleteTask(id) {
-  TaskManager.deleteTask(id)
+  taskManager.deleteTask(id)
   modal.close()
   showTasks()
 }
