@@ -1,75 +1,87 @@
-
 class Task {
   constructor(id, descripcion) {
-    this.id = id
-    this.descripcion = descripcion
+    // Crea una nueva tarea con un id y una descripción
+    this.id = id;
+    this.descripcion = descripcion;
   }
 
   getDescripcion() {
-    return this.descripcion
+    // Devuelve la descripción de la tarea
+    return this.descripcion;
   }
 
   setDescripcion(newDescripcion) {
-    this.descripcion = newDescripcion
+    // Establece una nueva descripción para la tarea
+    this.descripcion = newDescripcion;
   }
 }
 
 class TaskManager {
   constructor() {
+    // Inicializa el administrador de tareas con las tareas obtenidas de la cookie o un arreglo vacío si no encuentra ninguna cookie
     this.tasks = this.getTaskCookie() || []
   }
 
   getTask() {
+    // Devuelve la lista de tareas
     return this.tasks
   }
 
   postTask(descripcion) {
-    const id = new Date().getTime()
+    // Crea una nueva tarea con un id segun la hora y una descripción
+    const id = new Date().getTime()    
     const task = new Task(id, descripcion)
 
+    // Agrega la tarea a la lista de tareas del Manager y guarda en la cookie
     this.tasks.push(task)
     this.saveTaskCookie()
     return task
   }
 
   putTask(id, newDescripcion) {
+    // Busca la tarea por id y actualiza su descripción
     const task = this.tasks.find(task => task.id === id)    
     task.setDescripcion(newDescripcion)
+
     this.saveTaskCookie()    
   }
 
   deleteTask(id) {
-    this.tasks = this.tasks.filter(task => task.id !== id)    
+    // Elimina la tarea con el id especificado de la lista de tareas
+    this.tasks = this.tasks.filter(task => task.id !== id)  
+
     this.saveTaskCookie()
   }
 
   getTaskCookie() {
-    const foundCookie = document.cookie.split(" ").find((row) => row.startsWith("CRUDTAREAS_Agus="))
-
+    // Obtiene las tareas guardadas en las cookies si existen
+    const foundCookie = document.cookie.split("; ").find((row) => row.startsWith("CRUDTAREAS_Agus="))?.split('=')[1]
+    
     if (foundCookie) {
-
-      const tareasData = foundCookie.split('=')[1]
-      
-      return tareasData.split('%*^').map(item => {
+      // Convierte la cadena de texto en tareas
+      return foundCookie.split('%*^').map(item => {
         
         const [id, descripcion] = item.split('$!^')
 
-        return new Task(Number(id), descripcion)
+        return new Task(Number(id), decodeURIComponent(descripcion))
       })
 
     }else{
+      // Si no hay cookie, devuelve un arreglo vacío
       return []
     }
   }
 
   saveTaskCookie() {
-    const tasksData = this.tasks.map(task => `${task.id}$!^${task.descripcion}`).join('%*^')
+    // Guarda las tareas actuales en la cookie
+    const tasksData = this.tasks.map(task => `${task.id}$!^${encodeURIComponent(task.descripcion)}`).join('%*^')
     document.cookie = `CRUDTAREAS_Agus=${tasksData}`
   }
 }
 
 class Modal {
   constructor() {
+    // Obtiene los elementos del modal y agrega un listener para cerrarlo
     this.modal = document.getElementById("modal")
     this.modalContent = document.getElementById("modalContent")
 
@@ -79,11 +91,13 @@ class Modal {
   }
 
   open(content) {    
+    // Muestra el modal con el contenido proporcionado
     this.modalContent.innerHTML = content
     this.modal.style.display = "block"
   }
 
   close() {
+    // Cierra el modal y limpia su contenido
     this.modal.style.display = "none"
     this.modalContent.innerHTML = "" 
   }
@@ -92,14 +106,14 @@ class Modal {
 const taskManager = new TaskManager()
 const modal = new Modal()
 
-
 function showTasks() {
-  
+  // Muestra todas las tareas en el contenedor principal
   const labelMain = document.querySelector("main")
   labelMain.innerHTML = ""
 
   const tasks = taskManager.getTask()
   
+  // Crea un div por cada tarea para cada tarea con su id, descripción y botones de editar y eliminar
   tasks.forEach((task) => {
     const div = document.createElement('div')
     div.className = "task"
@@ -110,23 +124,24 @@ function showTasks() {
       <p>${task.descripcion}</p>
 
       <div>
-        <img src="./svg/edit.svg" alt="edit" class="edit-icon">
-        <img src="./svg/trash.svg" alt="trash" class="trash-icon">
+        <img src="./svg/edit.svg" alt="edit" class="edit">
+        <img src="./svg/trash.svg" alt="trash" class="trash">
       </div>
     `
 
     labelMain.appendChild(div)
 
-    const editIcon = div.querySelector('.edit-icon')
-    const trashIcon = div.querySelector('.trash-icon')
+    // Asocia eventos de clic a los íconos de editar y eliminar
+    const editIcon = div.querySelector('.edit')
+    const trashIcon = div.querySelector('.trash')
 
     editIcon.addEventListener("click", () => showEditTask(task)) 
     trashIcon.addEventListener("click", () => showDeleteTask(task))
   })
 }
 
-
 const showCreateTask = () => {
+  // Muestra el formulario para crear una nueva tarea
   modal.open(`
     <h2>Crear Tarea</h2>
     <textarea id="descripcion" placeholder="Descripcion de la tarea" rows="4"></textarea>
@@ -135,6 +150,7 @@ const showCreateTask = () => {
 }
 
 const showEditTask = (task) => {
+  // Muestra el formulario para editar una tarea existente
   modal.open(`
     <h2>Editar Tarea</h2>
     <textarea id="descripcion" placeholder="Descripcion de la tarea" rows="4">${task.descripcion}</textarea>
@@ -143,6 +159,7 @@ const showEditTask = (task) => {
 }
 
 const showDeleteTask = (task) => {
+  // Muestra una confirmación para eliminar una tarea
   modal.open(`
     <h2>Eliminar Tarea</h2>
     <h3>Estas seguro de que deseas eliminar la tarea: "${task.id}"</h3>
@@ -153,8 +170,8 @@ const showDeleteTask = (task) => {
   `)
 }
 
-
 function addTask() {
+  // Crea una tarea nueva con la descripción proporcionada
   const descripcion = document.getElementById("descripcion").value
 
   if (descripcion) {
@@ -167,6 +184,7 @@ function addTask() {
 }
 
 function updateTask(id) {
+  // Actualiza la descripción de una tarea existente
   const descripcion = document.getElementById('descripcion').value
 
   if (descripcion) {
@@ -177,6 +195,7 @@ function updateTask(id) {
 }
 
 function deleteTask(id) {
+  // Elimina una tarea de la lista
   taskManager.deleteTask(id)
   modal.close()
   showTasks()
