@@ -1,24 +1,24 @@
 class Task {
   constructor(id, descripcion) {
-    // Crea una nueva tarea con un id y una descripción
+    // Crea una nueva tarea con un id y una descripcion
     this.id = id;
     this.descripcion = descripcion;
   }
 
   getDescripcion() {
-    // Devuelve la descripción de la tarea
+    // Devuelve la descripcion de la tarea
     return this.descripcion;
   }
 
   setDescripcion(newDescripcion) {
-    // Establece una nueva descripción para la tarea
+    // Establece una nueva descripcion para la tarea
     this.descripcion = newDescripcion;
   }
 }
 
 class TaskManager {
   constructor() {
-    // Inicializa el administrador de tareas con las tareas obtenidas de la cookie o un arreglo vacío si no encuentra ninguna cookie
+    // Inicializa el administrador de tareas con las tareas obtenidas de la cookie o un arreglo vacio si no encuentra ninguna cookie
     this.tasks = this.getTaskCookie() || []
   }
 
@@ -28,7 +28,7 @@ class TaskManager {
   }
 
   postTask(descripcion) {
-    // Crea una nueva tarea con un id segun la hora y una descripción
+    // Crea una nueva tarea con un id segun la hora y una descripcion
     const id = new Date().getTime()    
     const task = new Task(id, descripcion)
 
@@ -39,7 +39,7 @@ class TaskManager {
   }
 
   putTask(id, newDescripcion) {
-    // Busca la tarea por id y actualiza su descripción
+    // Busca la tarea por id y actualiza su descripcion
     const task = this.tasks.find(task => task.id === id)    
     task.setDescripcion(newDescripcion)
 
@@ -67,8 +67,8 @@ class TaskManager {
       })
 
     }else{
-      // Si no hay cookie, devuelve un arreglo vacío
-      return []
+      // Si no hay cookie, no devuelve nada
+      return 
     }
   }
 
@@ -113,31 +113,43 @@ function showTasks() {
 
   const tasks = taskManager.getTask()
   
-  // Crea un div por cada tarea para cada tarea con su id, descripción y botones de editar y eliminar
-  tasks.forEach((task) => {
+
+  if (tasks.length !== 0) {
+    
+    // Crea un div por cada tarea para cada tarea con su id, descripcion y botones de editar y eliminar
+    tasks.forEach((task) => {
+      const div = document.createElement('div')
+      div.className = "task"
+
+      div.innerHTML = `
+        <h3>${task.id}</h3>
+
+        <p>${task.descripcion}</p>
+
+        <div>
+          <img src="./svg/edit.svg" alt="edit" class="edit">
+          <img src="./svg/trash.svg" alt="trash" class="trash">
+        </div>
+      `
+
+      labelMain.appendChild(div)
+
+      // Asocia eventos de clic a los iconos de editar y eliminar
+      const editIcon = div.querySelector('.edit')
+      const trashIcon = div.querySelector('.trash')
+
+      editIcon.addEventListener("click", () => showEditTask(task)) 
+      trashIcon.addEventListener("click", () => showDeleteTask(task))
+    })
+
+  }else{
+    // Crea un div con id "message", le asigna un mensaje y lo agrega a labelMain
     const div = document.createElement('div')
-    div.className = "task"
+    div.id = "message"
 
-    div.innerHTML = `
-      <h3>${task.id}</h3>
-
-      <p>${task.descripcion}</p>
-
-      <div>
-        <img src="./svg/edit.svg" alt="edit" class="edit">
-        <img src="./svg/trash.svg" alt="trash" class="trash">
-      </div>
-    `
-
+    div.innerHTML = `<h3>No se ha encontrado ninguna tarea</h3>`
     labelMain.appendChild(div)
-
-    // Asocia eventos de clic a los íconos de editar y eliminar
-    const editIcon = div.querySelector('.edit')
-    const trashIcon = div.querySelector('.trash')
-
-    editIcon.addEventListener("click", () => showEditTask(task)) 
-    trashIcon.addEventListener("click", () => showDeleteTask(task))
-  })
+  }
 }
 
 const showCreateTask = () => {
@@ -159,7 +171,7 @@ const showEditTask = (task) => {
 }
 
 const showDeleteTask = (task) => {
-  // Muestra una confirmación para eliminar una tarea
+  // Muestra una confirmacion para eliminar una tarea
   modal.open(`
     <h2>Eliminar Tarea</h2>
     <h3>Estas seguro de que deseas eliminar la tarea: "${task.id}"</h3>
@@ -171,7 +183,7 @@ const showDeleteTask = (task) => {
 }
 
 function addTask() {
-  // Crea una tarea nueva con la descripción proporcionada
+  // Crea una tarea nueva con la descripcion proporcionada
   const descripcion = document.getElementById("descripcion").value
 
   if (descripcion) {
@@ -184,7 +196,7 @@ function addTask() {
 }
 
 function updateTask(id) {
-  // Actualiza la descripción de una tarea existente
+  // Actualiza la descripcion de una tarea existente
   const descripcion = document.getElementById('descripcion').value
 
   if (descripcion) {
