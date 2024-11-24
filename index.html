@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Agencia de viajes</title>
+</head>
+<body>
+  <section>
+    <h2>Clientes</h2>
+    <form action="">
+      <input type="text" placeholder="Nombre">
+      <input type="text" placeholder="Apellidos">
+      <input type="text" placeholder="Correo Electronico">
+      <input type="text" placeholder="Telefono">
+      <button>Agregar Cliente</button>
+    </form>
+    <table>
+      <thead>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Email</th>
+        <th>Telefono</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        <td>Manuel</td>
+        <td>Gutierrez</td>
+        <td>manuel43@gmail.com</td>
+        <td>698243234</td>
+        <td>
+          <button>Eliminar</button>
+        </td>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Viajes</h2>
+    <form action="">
+      <input type="text" placeholder="Codigo">
+      <input type="text" placeholder="Destino">
+      <input type="number" placeholder="Precio">
+      <select name="selectTypeTrip" id="selectTypeTrip">
+        <option selected>Tipo de Viaje</option>
+      </select>
+      <button>Agregar Viaje</button>
+    </form>
+    <table>
+      <thead>
+        <th>Codigo</th>
+        <th>Destino</th>
+        <th>Precio</th>
+        <th>Tipo</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        <td>324</td>
+        <td>Cadiz</td>
+        <td>442</td>
+        <td>Paquete</td>
+        <td>
+          <button>Eliminar</button>
+        </td>
+      </tbody>
+    </table>
+
+  </section>
+
+  <section>
+    <h2>Viajes</h2>
+    <form action="">
+      <select name="selectClient" id="selectClient"></select>
+      <select name="selectTypeTrip" id="selectTypeTrip">
+        <option selected>Tipo de Viaje</option>
+      </select>
+      <button>Agregar Viaje</button>
+    </form>
+    <table>
+      <thead>
+        <th>Cliente</th>
+        <th>Viaje</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        <td>Manuel Gutierrez</td>
+        <td>Cadiz</td>
+        <td>19/11/2003</td>
+        <td>
+          <button>Cancelar</button>
+        </td>
+      </tbody>
+    </table>
+  </section>
+</body>
+</html>
