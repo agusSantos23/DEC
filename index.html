@@ -9,12 +9,12 @@
 <body>
   <section>
     <h2>Clientes</h2>
-    <form action="">
-      <input type="text" placeholder="Nombre">
-      <input type="text" placeholder="Apellidos">
-      <input type="text" placeholder="Correo Electronico">
-      <input type="text" placeholder="Telefono">
-      <button>Agregar Cliente</button>
+    <form data-form-id="form1">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="text" name="apellidos" placeholder="Apellidos" required>
+      <input type="text" name="correo" placeholder="Correo Electronico" required>
+      <input type="text" name="telefono" placeholder="Telefono" required>
+      <button type="submit">Agregar Cliente</button>
     </form>
     <table>
       <thead>
@@ -32,14 +32,17 @@
 
   <section>
     <h2>Viajes</h2>
-    <form action="">
-      <input type="text" placeholder="Codigo">
-      <input type="text" placeholder="Destino">
-      <input type="number" placeholder="Precio">
-      <select name="selectTypeTrip" id="selectTypeTrip">
+    <form data-form-id="form2"> 
+      <input type="text" name="codigo" placeholder="Codigo" required> 
+      <input type="text" name="destino" placeholder="Destino" required> 
+      <input type="number" name="precio" placeholder="Precio" required> 
+      <select name="selectTypeTrip" id="selectTypeTrip" required> 
         <option selected>Tipo de Viaje</option>
-      </select>
-      <button>Agregar Viaje</button>
+        <option value="vuelo">Vuelo</option>
+        <option value="hotel">Hotel</option>
+        <option value="paquete">Paquete</option>
+      </select> 
+      <button type="submit">Agregar Viaje</button> 
     </form>
     <table>
       <thead>
@@ -50,27 +53,20 @@
         <th>Acciones</th>
       </thead>
       <tbody id="tableTrips">
-        <td>324</td>
-        <td>Cadiz</td>
-        <td>442</td>
-        <td>Paquete</td>
-        <td>
-          <button>Eliminar</button>
-        </td>
       </tbody>
     </table>
   </section>
 
   <section>
     <h2>Reservas</h2>
-    <form action="">
-      <select name="selectClient" id="selectClient">
+    <form>
+      <select name="selectClient" id="selectClient" required>
         <option selected>Seleccionar Cliente</option>
       </select>
-      <select name="selectTypeTrip" id="selectTypeTrip">
+      <select name="selectTypeTrip" id="selectTypeTrip" required>
         <option selected>Tipo de Viaje</option>
       </select>
-      <button>Agregar Viaje</button>
+      <button type="submit">Agregar Viaje</button>
     </form>
     <table>
       <thead>
@@ -80,15 +76,12 @@
         <th>Acciones</th>
       </thead>
       <tbody id="tableBooking">
-        <td>Manuel Gutierrez</td>
-        <td>Cadiz</td>
-        <td>19/11/2003</td>
-        <td>
-          <button>Cancelar</button>
-        </td>
+        
       </tbody>
     </table>
   </section>
+
+
   <script type="module" src="./js/script.js"></script>
 </body>
 </html>
