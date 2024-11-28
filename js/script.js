@@ -1,7 +1,7 @@
 
-import { Vuelo, Hotel, Paquete, Cliente, Reserva, Viaje } from './clases.js'
+import { Vuelo, Hotel, Paquete, Cliente, Reserva } from './clases.js'
 
-const getDB = type =>{
+const getDB = (type, filters = {}) =>{
   const storedData = localStorage.getItem('db_AgenciaViajes')
   if (!storedData) {
     return {
@@ -22,17 +22,16 @@ const getDB = type =>{
 
   dbTemporal.trips.forEach(
     dato => { 
-      console.log(dato);
       
-      if (dato.aerolinea) { 
+      if (dato.aerolinea !== undefined) { 
 
         db.trips.push(new Vuelo(dato.codigo, dato.destino, dato.precio, dato.aerolinea, dato.duracion))
 
-      } else if (dato.estrellas) { 
+      } else if (dato.estrellas !== undefined) { 
         
         db.trips.push(new Hotel(dato.codigo, dato.destino, dato.precio, dato.estrellas, dato.tipoHabitacion))
 
-      } else if (Object.keys(dato).length === 6 ) { 
+      } else if (dato.vuelo && dato.hotel) { 
 
         const vuelo = new Vuelo(dato.vuelo.codigo, dato.vuelo.destino, dato.vuelo.precio, dato.vuelo.aerolinea, dato.vuelo.duracion)
         const hotel = new Hotel(dato.hotel.codigo, dato.hotel.destino, dato.hotel.precio, dato.hotel.estrellas, dato.hotel.tipoHabitacion)
@@ -43,10 +42,10 @@ const getDB = type =>{
   )
 
   dbTemporal.bookings.forEach(dato => {
+    let viaje
+
     const cliente = new Cliente(dato.cliente.nombre, dato.cliente.apellido, dato.cliente.email, dato.cliente.telefono)
 
-    let viaje
-    
 
     if (dato.viaje) { 
 
@@ -64,8 +63,19 @@ const getDB = type =>{
       viaje = new Paquete(dato.codigo, dato.destino, dato.precio, vuelo, hotel)
     }
 
-    db.bookings.push(new Reserva(cliente,viaje,))
+    db.bookings.push(new Reserva(cliente,viaje,dato.fecha))
   })
+
+  if (filters.selectClient && filters.selectTypeTrip) {
+    const filteredClient = db.clients.find(client => client.email === filters.selectClient)
+    const filteredTrip = db.trips.find(trip => trip.codigo === filters.selectTypeTrip)
+
+    if (filteredClient && filteredTrip) {
+      return { client: filteredClient, trip: filteredTrip }
+    } else {
+      return { message: "No se encontró el cliente o el viaje" }
+    }
+  }
 
 
   if (type) {
@@ -100,7 +110,6 @@ const setDB = obj => {
   
   localStorage.setItem('db_AgenciaViajes', JSON.stringify(db))
 }
-
 
 const post = event => {
   event.preventDefault()
@@ -137,15 +146,64 @@ const post = event => {
     }
 
   } else if(data.selectClient && data.selectTypeTrip){
-    dateNow = new Date().toLocaleDateString()
+    
+    const resultFilter = getDB(null, { selectClient: data.selectClient, selectTypeTrip: data.selectTypeTrip  })
 
+    if (resultFilter.client && resultFilter.trip) {
+
+      const dateToday = new Intl.DateTimeFormat('es-ES').format(new Date())
+      
+      setDB(new Reserva( resultFilter.client, resultFilter.trip, dateToday))
+
+    } else {
+      console.error("No se encontro el cliente o el viaje.")
+    }
+    
   }
 
   viewData()
 }
 
 
+const deleteRow = boton => {
 
+  const rowTable = boton.parentElement.parentElement
+  const tableId = rowTable.parentElement.id 
+
+  const db = getDB() 
+
+  let elementoId
+
+  switch (tableId) {
+    case 'tableClients':
+      elementoId = rowTable.cells[2].textContent 
+      db.clients = db.clients.filter(client => client.email !== elementoId)
+      break
+
+    case 'tableTrips':
+      elementoId = rowTable.cells[0].textContent 
+      db.trips = db.trips.filter(trip => trip.codigo !== elementoId)
+      break
+
+    case 'tableBooking':
+      const nombreCompleto = rowTable.cells[0].textContent 
+      const destino = rowTable.cells[1].textContent 
+
+      db.bookings = db.bookings.filter(booking => {
+        const nombreCliente = `${booking.cliente.nombre} ${booking.cliente.apellido}`
+        return nombreCliente !== nombreCompleto || booking.viaje.destino !== destino
+      })
+      break
+
+    default:
+      console.error('Tabla desconocida')
+      return
+  }
+
+  localStorage.setItem('db_AgenciaViajes', JSON.stringify(db))
+
+  viewData()
+}
 
 const viewData = () => {
   const tableClients = document.getElementById('tableClients')
@@ -165,9 +223,8 @@ const viewData = () => {
   selectClient.replaceChildren()
   selectTrip.replaceChildren()
 
-  selectClient.appendChild(new Option('Seleccionar', null, true, true));
-  selectTrip.appendChild(new Option('Seleccionar', null, true, true));
-
+  selectClient.appendChild(new Option('Seleccionar', null, true, true))
+  selectTrip.appendChild(new Option('Seleccionar', null, true, true))
 
 
   db.clients.forEach(client => {
@@ -178,7 +235,7 @@ const viewData = () => {
       <td>${client.email}</td> 
       <td>${client.telefono}</td> 
       <td> 
-        <button onclick="eliminarFila(this)">Eliminar</button> 
+        <button class="btnDelete">Eliminar</button> 
       </td> 
     `
     tableClients.appendChild(newRow)
@@ -199,7 +256,7 @@ const viewData = () => {
       <td>${trip.precio}</td> 
       <td>${trip.constructor.name}</td> 
       <td> 
-        <button onclick="eliminarFila(this)">Eliminar</button> 
+        <button class="btnDelete">Eliminar</button> 
       </td> 
     `
     tableTrips.appendChild(newRow)
@@ -213,33 +270,23 @@ const viewData = () => {
 
   db.bookings.forEach(booking => {
     const newRow = document.createElement('tr')
-    console.log(booking)
     
     newRow.innerHTML = ` 
-      <td>${booking.cliente.nombre}</td> 
+      <td>${booking.cliente.nombre} ${booking.cliente.apellido}</td> 
       <td>${booking.viaje.destino}</td> 
-      <td>20/05/2023</td> 
+      <td>${booking.fecha}</td> 
       <td> 
-        <button onclick="eliminarFila(this)">Eliminar</button> 
+        <button class="btnDelete">Eliminar</button> 
       </td> 
     `
     tableBooking.appendChild(newRow)
   })
 
-
+  document.querySelectorAll('.btnDelete').forEach(button => {
+    button.addEventListener('click', event => {deleteRow(event.target)} )
+  })
 
 }
-
-
-// Crear instancias
-const cliente1 = new Cliente("Paco", "Ramos", "ramirez.perez@gmail.com", "123446789")
-const vuelo1 = new Vuelo("V001", "París", 200, "Air France", 2.5)
-const hotel1 = new Hotel("H001", "París", 100, 4, "Doble")
-const paquete1 = new Paquete("P001", "París", 280, vuelo1, hotel1)
-
-const reserva1 = new Reserva(cliente1, vuelo1,new Date().toLocaleDateString())
-
-
 
 viewData()
 

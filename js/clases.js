@@ -67,7 +67,7 @@ class Cliente {
 
 
 class Reserva{
-  constructor(cliente, viaje, fecha) {
+  constructor(cliente, viaje, fecha) {    
     this.cliente = cliente;
     this.viaje = viaje;
     this.fecha = fecha;
@@ -79,5 +79,5 @@ class Reserva{
 }
 
 
-export { Viaje, Vuelo, Hotel, Paquete, Cliente, Reserva };
+export { Vuelo, Hotel, Paquete, Cliente, Reserva };
 
