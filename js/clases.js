@@ -67,9 +67,10 @@ class Cliente {
 
 
 class Reserva{
-  constructor(cliente, viaje) {
+  constructor(cliente, viaje, fecha) {
     this.cliente = cliente;
     this.viaje = viaje;
+    this.fecha = fecha;
   }
 
   getResumen() {

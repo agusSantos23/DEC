@@ -22,19 +22,20 @@ const getDB = type =>{
 
   dbTemporal.trips.forEach(
     dato => { 
+      console.log(dato);
       
       if (dato.aerolinea) { 
 
         db.trips.push(new Vuelo(dato.codigo, dato.destino, dato.precio, dato.aerolinea, dato.duracion))
 
       } else if (dato.estrellas) { 
-
+        
         db.trips.push(new Hotel(dato.codigo, dato.destino, dato.precio, dato.estrellas, dato.tipoHabitacion))
 
       } else if (Object.keys(dato).length === 6 ) { 
 
         const vuelo = new Vuelo(dato.vuelo.codigo, dato.vuelo.destino, dato.vuelo.precio, dato.vuelo.aerolinea, dato.vuelo.duracion)
-        const hotel = new Hotel(dato.hotel.codigo, dato.hotel.destino, dato.hotel.precio, dato.hotel.aerolinea, dato.hotel.duracion)
+        const hotel = new Hotel(dato.hotel.codigo, dato.hotel.destino, dato.hotel.precio, dato.hotel.estrellas, dato.hotel.tipoHabitacion)
 
         db.trips.push(new Paquete(dato.codigo, dato.destino, dato.precio, vuelo, hotel))
       }
@@ -45,6 +46,7 @@ const getDB = type =>{
     const cliente = new Cliente(dato.cliente.nombre, dato.cliente.apellido, dato.cliente.email, dato.cliente.telefono)
 
     let viaje
+    
 
     if (dato.viaje) { 
 
@@ -62,7 +64,7 @@ const getDB = type =>{
       viaje = new Paquete(dato.codigo, dato.destino, dato.precio, vuelo, hotel)
     }
 
-    db.bookings.push(new Reserva(cliente,viaje))
+    db.bookings.push(new Reserva(cliente,viaje,))
   })
 
 
@@ -103,10 +105,10 @@ const setDB = obj => {
 const post = event => {
   event.preventDefault()
 
-  const form = event.currentTarget;
-  const formData = new FormData(form); 
+  const form = event.currentTarget
+  const formData = new FormData(form) 
    
-  const data = Object.fromEntries(formData.entries());
+  const data = Object.fromEntries(formData.entries())
   
   if (data.nombre) {
     
@@ -117,24 +119,25 @@ const post = event => {
     switch (data.selectTypeTrip) {
       case "vuelo":
         setDB(new Vuelo(data.codigo, data.destino, data.precio, "vuela rapido", Math.floor(Math.random() * 7) + 1))
-        break;
+        break
 
       case "hotel":
         setDB(new Hotel(data.codigo, data.destino, data.precio, Math.floor(Math.random() * 5) + 0, "Individual" ))
-        break;
+        break
 
       case "paquete":
         const vuelo = new Vuelo(data.codigo, data.destino, data.precio, "vuela rapido", Math.floor(Math.random() * 7) + 1)
         const hotel = new Hotel(data.codigo, data.destino, data.precio, Math.floor(Math.random() * 5) + 0, "Individual")
         setDB(new Paquete(data.codigo, data.destino, data.precio, vuelo, hotel ))
-        break;
+        break
     
       default:
-        console.error("No se ha encontrado ese tipo de viaje");
-        break;
+        console.error("No se ha encontrado ese tipo de viaje")
+        break
     }
 
   } else if(data.selectClient && data.selectTypeTrip){
+    dateNow = new Date().toLocaleDateString()
 
   }
 
@@ -149,15 +152,26 @@ const viewData = () => {
   const tableTrips = document.getElementById('tableTrips')
   const tableBooking = document.getElementById('tableBooking')
 
+  const selectClient = document.getElementById('selectClient')
+  const selectTrip = document.getElementById('selectTrip')
+
   const db = getDB()
 
-  tableClients.replaceChildren();
-  tableTrips.replaceChildren();
-  tableBooking.replaceChildren();
+  tableClients.replaceChildren()
+  tableTrips.replaceChildren()
+  tableBooking.replaceChildren()
+
+
+  selectClient.replaceChildren()
+  selectTrip.replaceChildren()
+
+  selectClient.appendChild(new Option('Seleccionar', null, true, true));
+  selectTrip.appendChild(new Option('Seleccionar', null, true, true));
+
 
 
   db.clients.forEach(client => {
-    const newRow = document.createElement('tr');
+    const newRow = document.createElement('tr')
     newRow.innerHTML = ` 
       <td>${client.nombre}</td> 
       <td>${client.apellido}</td> 
@@ -168,11 +182,17 @@ const viewData = () => {
       </td> 
     `
     tableClients.appendChild(newRow)
+
+
+    const newOption = document.createElement('option')
+    newOption.value = client.email
+    newOption.textContent = `${client.nombre} ${client.apellido}`
+    selectClient.appendChild(newOption)
+
   })
 
   db.trips.forEach(trip => {
-    const newRow = document.createElement('tr');
-    
+    const newRow = document.createElement('tr')
     newRow.innerHTML = ` 
       <td>${trip.codigo}</td> 
       <td>${trip.destino}</td> 
@@ -183,10 +203,17 @@ const viewData = () => {
       </td> 
     `
     tableTrips.appendChild(newRow)
+
+    const newOption = document.createElement('option')
+    newOption.value = trip.codigo
+    newOption.textContent = trip.codigo
+    selectTrip.appendChild(newOption)
+
   })
 
   db.bookings.forEach(booking => {
-    const newRow = document.createElement('tr');
+    const newRow = document.createElement('tr')
+    console.log(booking)
     
     newRow.innerHTML = ` 
       <td>${booking.cliente.nombre}</td> 
@@ -199,6 +226,8 @@ const viewData = () => {
     tableBooking.appendChild(newRow)
   })
 
+
+
 }
 
 
@@ -208,16 +237,15 @@ const vuelo1 = new Vuelo("V001", "París", 200, "Air France", 2.5)
 const hotel1 = new Hotel("H001", "París", 100, 4, "Doble")
 const paquete1 = new Paquete("P001", "París", 280, vuelo1, hotel1)
 
-const reserva1 = new Reserva(cliente1, paquete1);
-
+const reserva1 = new Reserva(cliente1, vuelo1,new Date().toLocaleDateString())
 
 
 
 viewData()
 
 document.querySelectorAll('form').forEach((form) => {
-  form.addEventListener('submit', post);
-});
+  form.addEventListener('submit', post)
+})
 
 
 
