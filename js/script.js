@@ -223,8 +223,8 @@ const viewData = () => {
   selectClient.replaceChildren()
   selectTrip.replaceChildren()
 
-  selectClient.appendChild(new Option('Seleccionar', null, true, true))
-  selectTrip.appendChild(new Option('Seleccionar', null, true, true))
+  selectClient.appendChild(new Option('Seleccionar Cliente', null, true, true))
+  selectTrip.appendChild(new Option('Seleccionar Viaje', null, true, true))
 
 
   db.clients.forEach(client => {
