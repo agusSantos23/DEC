@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/styles.css">
+  <title>DEC-EVENTOS</title>
+</head>
+<body>
+
+  <main>
+    <h1>Inicio de Sesion</h1>
+
+    
+    <form id="login" >
+
+      <label for="loginEmail" >
+        Correo Electronico
+        <input type="email" name="loginEmail" id="loginEmail" placeholder="ejemplo@correo.com">
+      </label>
+
+      <label for="loginPassword">
+        Contraseña
+        <input type="password" name="loginPassword" id="loginPassword" placeholder="**********">
+      </label>
+
+      <button type="submit">Iniciar Sesion</button>
+    </form>
+
+    <form id="register" class="hidden">
+      <label for="registerEmail">
+        Correo Electronico
+        <input type="email" name="registerEmail" id="registerEmail" placeholder="ejemplo@correo.com">
+      </label>
+
+      <label for="registerName">
+        Nombre
+        <input type="text" name="registerName" id="registerName" placeholder="Enrique Becerra Tejero">
+      </label>
+
+      <label for="registerPassword">
+        Contraseña
+        <input type="password" name="registerPassword" id="registerPassword" placeholder="**********">
+      </label>
+
+      <label for="registerPasswordConfirm">
+        Confirmar Contraseña
+        <input type="password" name="registerPasswordConfirm" id="registerPasswordConfirm" placeholder="**********">
+      </label>
+
+      <button type="submit">Registrar Usuario</button>
+    </form>
+
+    <h5>¿No tienes cuenta? <span id="btnLink">Registrate aqui</span></h5>
+    
+  </main>
+  
+  <script src="./libs/jquery-3.7.1.min.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
