@@ -1,18 +1,17 @@
-
-body{
+body {
   display: flex;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-main{
+main {
   width: 600px;
   border-radius: 10px;
   box-shadow: 0 20px 50px rgb(80, 80, 80);
 }
 
 
-h1{
+h1 {
   background-color: rgb(67, 61, 244);
   border-radius: 5px 5px 0 0;
   color: white;
@@ -22,19 +21,19 @@ h1{
   padding: 10px 0;
 }
 
-form{
+form {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-label{
+label {
   width: 90%;
-  margin: 10px  auto;
+  margin: 10px auto;
 }
 
-input{
+input {
   display: block;
   width: 96.5%;
   margin-top: 5px;
@@ -44,7 +43,7 @@ input{
   border: solid 2px lightgray;
 }
 
-button{
+button {
   color: white;
   background-color: rgb(67, 61, 244);
   margin-top: 30px;
@@ -57,24 +56,47 @@ button{
   transition: .2s ease-in-out;
 }
 
-button:hover{
+button:hover {
   background-color: rgb(54, 49, 180);
 }
 
-h5{
+h5 {
   text-align: center;
   font-weight: 200;
 }
 
-span{
+span {
   color: rgb(66, 61, 214);
   cursor: pointer;
 }
 
-span:hover{
+span:hover {
   text-decoration: underline;
 }
 
-.hidden{
+.hidden {
   display: none;
+}
+
+.notification {
+  width: 250px;
+  position: fixed;
+  bottom: 20px;
+  right: -300px;
+  background-color: #e65c52;
+  color: white;
+  font-size: 18px;
+  text-align: initial;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  animation: slideIn 0.5s forwards;
+}
+
+
+@keyframes slideIn {
+  to {
+    right: 10px;
+  }
 }
