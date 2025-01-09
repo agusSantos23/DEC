@@ -56,11 +56,26 @@ const validateData = (data, isLogin) => {
 
 }
 
+const findUserDB = (usersDB, data) =>{
+
+  let findUser = false
+      
+  usersDB.forEach(user => {
+    console.log(user);
+    
+    if (user.email === data.email && user.password === data.password) findUser = true
+  })
+
+  console.log(findUser);
+  
+  return findUser
+  
+}
+
+
 
 $("form").submit((event) => {
   event.preventDefault()
-
- 
 
   try {
     const data = getDataForm(isLogin)
@@ -69,6 +84,37 @@ $("form").submit((event) => {
   
     validateData(data, isLogin)
 
+    let usersDB = JSON.parse(localStorage.getItem('usersDB')) || []
+
+    if (isLogin) {
+      
+      if (!findUserDB(usersDB, data)) {
+        throw new Error("Usuario no encontrado");
+      }
+
+      
+    } else {
+
+      if(findUserDB(usersDB, data)){
+        throw new Error("Ya se ha encontrado un usuario con ese correo y contraseña");
+      }
+
+
+      const newUser = {
+        id: new Date().getTime(),
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        registerDate: `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`
+      }
+    
+      usersDB.push(newUser)
+      localStorage.setItem('usersDB', JSON.stringify(usersDB));
+      
+    }
+
+    window.location.href = "../admin.html"
+
 
   } catch (error) {
     console.error(error.message)
@@ -76,9 +122,7 @@ $("form").submit((event) => {
     errorNotification(error.message)
   }
 
-
   console.log("terminado");
-
 
 })
 
