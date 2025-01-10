@@ -1,15 +1,48 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
-main {
+header{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(67, 61, 244);
+  padding: 10px 0px;
+  margin-bottom: 30px;
+}
+
+h3{
+  margin: 0;
+  color: white;
+}
+
+#closeSesion{
+  padding: 7px;
+  background-color: white;
+
+  border: none;
+  border-radius: 5px;
+}
+
+#mainLoginRegister {
   width: 600px;
   border-radius: 10px;
+  margin-top: 50px;
   box-shadow: 0 20px 50px rgb(80, 80, 80);
 }
 
+#mainAdmin{
+  width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgb(80, 80, 80);
+}
 
 h1 {
   background-color: rgb(67, 61, 244);
@@ -19,6 +52,12 @@ h1 {
   font-size: 24px;
   margin: 0;
   padding: 10px 0;
+}
+
+h2{
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 form {
@@ -43,7 +82,7 @@ input {
   border: solid 2px lightgray;
 }
 
-button {
+#submit {
   color: white;
   background-color: rgb(67, 61, 244);
   margin-top: 30px;
@@ -56,7 +95,7 @@ button {
   transition: .2s ease-in-out;
 }
 
-button:hover {
+#submit:hover {
   background-color: rgb(54, 49, 180);
 }
 

@@ -6,8 +6,8 @@ const errorNotification = error => {
   $("body").append(notification)
 
   setTimeout(() => {
-    notification.fadeOut(500, () => { 
-      $(this).remove(); 
+    notification.fadeOut(500, () => {
+      $(this).remove();
     })
   }, 5000)
 }
@@ -56,22 +56,22 @@ const validateData = (data, isLogin) => {
 
 }
 
-const findUserDB = (usersDB, data) =>{
+const findUserDB = (usersDB, data) => usersDB.find(user => user.email === data.email && user.password === data.password)
 
-  let findUser = false
-      
-  usersDB.forEach(user => {
-    console.log(user);
-    
-    if (user.email === data.email && user.password === data.password) findUser = true
-  })
 
-  console.log(findUser);
-  
-  return findUser
-  
-}
+let usersDB = JSON.parse(localStorage.getItem('usersDB')) || []
 
+const tbody = $("tbody")
+tbody.empty()
+
+usersDB.forEach(user => { 
+  let row = `<tr> 
+      <td>${user.id}</td> 
+      <td>${user.email}</td> 
+      <td>${user.registerDate}</td> 
+    </tr>`
+    tbody.append(row)
+})
 
 
 $("form").submit((event) => {
@@ -81,24 +81,22 @@ $("form").submit((event) => {
     const data = getDataForm(isLogin)
 
     $(isLogin ? "#login" : "#register").trigger("reset")
-  
+
     validateData(data, isLogin)
 
     let usersDB = JSON.parse(localStorage.getItem('usersDB')) || []
 
     if (isLogin) {
-      
+
       if (!findUserDB(usersDB, data)) {
         throw new Error("Usuario no encontrado");
       }
 
-      
     } else {
 
-      if(findUserDB(usersDB, data)){
+      if (findUserDB(usersDB, data)) {
         throw new Error("Ya se ha encontrado un usuario con ese correo y contraseña");
       }
-
 
       const newUser = {
         id: new Date().getTime(),
@@ -107,10 +105,10 @@ $("form").submit((event) => {
         password: data.password,
         registerDate: `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`
       }
-    
+
       usersDB.push(newUser)
       localStorage.setItem('usersDB', JSON.stringify(usersDB));
-      
+
     }
 
     window.location.href = "../admin.html"
@@ -143,4 +141,14 @@ $("h5").on("click", "#btnLink", () => {
 
   isLogin = !isLogin
 
+})
+
+$("#closeSesion").click(() => window.location.href = "../index.html")
+
+$("#myTable").DataTable({ 
+  "columns": [
+    { "data": "id" }, 
+    { "data": "email" }, 
+    { "data": "registerDate" }
+  ]
 })

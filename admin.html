@@ -4,12 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./libs/DataTables/datatables.min.css">
   <title>Administracion</title>
 </head>
 <body>
-  
+  <header>
+    <h3>Panel de Administracion</h3>
 
+    <button id="closeSesion">Cerrar Sesion</button>
+  </header>
+  <main id="mainAdmin">
+    <h2>Usuarios Registrados</h2>
+    <table id="myTable" class="display">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>email</th>
+          <th>Fecha de registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 1 Data 1</td>
+          <td>Row 1 Data 2</td>
+          <td>Row 1 Data 2</td>
+  
+        </tr>
+        <tr>
+          <td>Row 2 Data 1</td>
+          <td>Row 2 Data 2</td>
+          <td>Row 1 Data 2</td>
+  
+        </tr>
+      </tbody>
+    </table>
+    
+
+  </main>
+  
+  
   <script src="./libs/jquery-3.7.1.min.js"></script>
+  <script src="./libs/DataTables/datatables.min.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>
