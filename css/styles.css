@@ -22,6 +22,10 @@ h3{
   color: white;
 }
 
+button{
+  cursor: pointer;
+}
+
 #closeSesion{
   padding: 7px;
   background-color: white;
@@ -38,7 +42,7 @@ h3{
 }
 
 #mainAdmin{
-  width: 800px;
+  width: 900px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 20px 50px rgb(80, 80, 80);
@@ -91,7 +95,6 @@ input {
   width: 80%;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   transition: .2s ease-in-out;
 }
 
