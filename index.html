@@ -2,60 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Configuración de la vista para dispositivos móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enlace a la hoja de estilos principal -->
   <link rel="stylesheet" href="./css/styles.css">
   <title>DEC-EVENTOS</title>
 </head>
 <body>
-
   <main id="mainLoginRegister">
-    <h1 >Inicio de Sesion</h1>
-
+    <h1>Inicio de Sesion</h1>
     
-    <form id="login" >
-
-      <label for="loginEmail" >
+    <!-- Formulario de inicio de sesión -->
+    <form id="login">
+      <label for="loginEmail">
         Correo Electronico
+        <!-- Campo para ingresar el correo electrónico -->
         <input type="email" name="loginEmail" id="loginEmail" placeholder="ejemplo@correo.com" required>
       </label>
 
       <label for="loginPassword">
         Contraseña
+        <!-- Campo para ingresar la contraseña -->
         <input type="password" name="loginPassword" id="loginPassword" placeholder="**********" required>
       </label>
 
+      <!-- Botón para enviar el formulario de inicio de sesión -->
       <button id="submit" type="submit">Iniciar Sesion</button>
     </form>
 
+    <!-- Formulario de registro (oculto por defecto) -->
     <form id="register" class="hidden">
       <label for="registerEmail">
         Correo Electronico
+        <!-- Campo para ingresar el correo electrónico -->
         <input type="email" name="registerEmail" id="registerEmail" placeholder="ejemplo@correo.com" required>
       </label>
 
       <label for="registerName">
         Nombre
+        <!-- Campo para ingresar el nombre -->
         <input type="text" name="registerName" id="registerName" placeholder="Enrique Becerra Tejero" required>
       </label>
 
       <label for="registerPassword">
         Contraseña
+        <!-- Campo para ingresar la contraseña -->
         <input type="password" name="registerPassword" id="registerPassword" placeholder="**********" required>
       </label>
 
       <label for="registerPasswordConfirm">
         Confirmar Contraseña
+        <!-- Campo para confirmar la contraseña -->
         <input type="password" name="registerPasswordConfirm" id="registerPasswordConfirm" placeholder="**********" required>
       </label>
 
+      <!-- Botón para enviar el formulario de registro -->
       <button id="submit" type="submit">Registrar Usuario</button>
     </form>
 
+    <!-- Enlace para cambiar de vista  -->
     <h5>¿No tienes cuenta? <span id="btnLink">Registrate aqui</span></h5>
     
   </main>
   
+  <!-- Inclusión de bibliotecas y scripts JavaScript -->
+  <!-- Biblioteca jQuery -->
   <script src="./libs/jquery-3.7.1.min.js"></script>
+  <!-- Script personalizado -->
   <script src="./js/main.js"></script>
 </body>
 </html>
